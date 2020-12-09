@@ -18,7 +18,7 @@ module.exports.search = (event, context, callback) => {
     var output;
     var options = {
         method: 'GET',
-        url: 'https://api.twitter.com/1.1/users/search.json?q=geetika',
+        url: 'https://api.twitter.com/1.1/users/search.json?q='+ event.pathParameters.text,
         contentType: 'application/json',
         headers: {
             "Authorization": authorization_header

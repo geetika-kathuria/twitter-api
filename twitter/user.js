@@ -7,7 +7,7 @@ module.exports.profile = (event, context, callback) => {
     var output;
     var options = {
         method: 'GET',
-        url: 'https://api.twitter.com/1.1/users/show.json?screen_name=geetikakathuria',
+        url: 'https://api.twitter.com/1.1/users/show.json?screen_name=' + event.pathParameters.text,
         contentType: 'application/json',
         headers: {
             "Authorization": "Bearer AAAAAAAAAAAAAAAAAAAAAFcwFAEAAAAA5wz1GhbaUBNiNE7x%2BhMbbTyeGeM%3Dj5DRcN3jrwKMTLtxBTmdgq8P8c5swfgIqfCdFHQ9iM2CM1eg27"

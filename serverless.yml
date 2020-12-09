@@ -10,20 +10,20 @@ functions:
     handler: twitter/tweets.search
     events:
       - http:
-          path: tweets
+          path: tweets/{text}
           method: get
           cors: true
   users:
     handler: twitter/users.search
     events:
       - http:
-          path: users
+          path: users/{text}
           method: get
           cors: true
   profile:
     handler: twitter/user.profile
     events:
       - http:
-          path: user
+          path: user/{text}
           method: get
           cors: true
