@@ -1,0 +1,29 @@
+service: twitter-api
+
+frameworkVersion: ">=2.0.0"
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+functions:
+  tweets:
+    handler: twitter/tweets.search
+    events:
+      - http:
+          path: tweets
+          method: get
+          cors: true
+  users:
+    handler: twitter/users.search
+    events:
+      - http:
+          path: users
+          method: get
+          cors: true
+  profile:
+    handler: twitter/user.profile
+    events:
+      - http:
+          path: user
+          method: get
+          cors: true
