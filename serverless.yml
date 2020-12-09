@@ -5,6 +5,13 @@ frameworkVersion: ">=2.0.0"
 provider:
   name: aws
   runtime: nodejs10.x
+  environment:
+    CONSUMER_KEY: 'XXXX'
+    CONSUMER_SECRET: 'XXXXX'
+    ACCESS_TOKEN_KEY: 'XXXXX'
+    ACCESS_TOKEN_SECRET: 'XXXX'
+    BEARER_TOKEN: 'Bearer XXXXXX'
+    BASE_URL_TWEETS: 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name='
 functions:
   tweets:
     handler: twitter/tweets.search

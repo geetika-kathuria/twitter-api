@@ -1,48 +1,36 @@
 'use strict';
 
-var request = require("request");
-var _ = require('lodash');
+var Twitter = require('twitter');
+
+var client = new Twitter({
+    consumer_key: process.env.CONSUMER_KEY,
+    consumer_secret: process.env.CONSUMER_SECRET,
+    access_token_key: process.env.ACCESS_TOKEN_KEY,
+    access_token_secret: process.env.ACCESS_TOKEN_SECRET,
+});
 
 module.exports.profile = (event, context, callback) => {
-    var output;
-    var options = {
-        method: 'GET',
-        url: 'https://api.twitter.com/1.1/users/show.json?screen_name=' + event.pathParameters.text,
-        contentType: 'application/json',
-        headers: {
-            "Authorization": "Bearer AAAAAAAAAAAAAAAAAAAAAFcwFAEAAAAA5wz1GhbaUBNiNE7x%2BhMbbTyeGeM%3Dj5DRcN3jrwKMTLtxBTmdgq8P8c5swfgIqfCdFHQ9iM2CM1eg27"
+    client.get('https://api.twitter.com/1.1/users/show.json', {
+        screen_name: event.pathParameters.text
+    }, function (error, tweets, response) {
+        if (error) {
+            response = {
+                statusCode: error.code,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                },
+                body: JSON.stringify(error),
+            };
         }
-    };
-
-    // fetch todo from the database
-
-    request(options, function (error, response, body) {
-        if (error) throw new Error(error);
-        response = {
-            statusCode: 200,
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            },
-            body: JSON.stringify(JSON.parse(body)),
-        };
+        if (!error) {
+            response = {
+                statusCode: 200,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                },
+                body: JSON.stringify(tweets),
+            };
+        }
         callback(null, response);
-
     });
-
-
-};
-
-function getTwitterText(body) {
-    var answer=[];
-    var arrNew = JSON.parse(body);
-    console.log(body);
-    console.log(arrNew);
-
-    // arrNew.forEach(function (arrNew) {
-    //     var newJsonObj = {};
-    //     newJsonObj['tweetText'] = arrNew.text;
-    //     answer.push(newJsonObj);
-
-    // });
-    return body;
 };
